@@ -4,7 +4,9 @@
   "description": "exam generator backend project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "start:watch": "node --watch index.js"
   },
   "keywords": [
     "exam",
