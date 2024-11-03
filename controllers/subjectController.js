@@ -8,3 +8,14 @@ export const testSubject = (req,res) => {
         message: "Mensaje desde el controlador de Subjects"
     });
 };
+
+// Subject = Materia
+
+// Método para crear un Subject TODO
+
+// Método para obtener el listado de Subjects TODO
+
+// Método para editar un Subject TODO
+
+// Método para eliminar un Subject TODO
+

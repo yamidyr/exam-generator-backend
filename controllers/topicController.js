@@ -8,3 +8,12 @@ export const testTopic = (req,res) => {
         message: "Mensaje desde el controlador de Topics"
     });
 };
+
+
+// Método para crear un tópico TODO
+
+// Método para obtener un listado de tópicos por materia TODO
+
+// Método para modificar un tópico TODO
+
+// Método para eliminar un tópico TODO
