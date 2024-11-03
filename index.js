@@ -4,6 +4,12 @@ import dotenv from "dotenv";
 import connection from "./database/connection.js";
 import cors from "cors";
 import bodyParser from "body-parser";
+import UserRoutes from "./routes/user.js";
+import SubjectRoutes from "./routes/subject.js";
+import TopicRoutes from "./routes/topic.js";
+import ExamRoutes from "./routes/exam.js";
+import QuestionRoutes from "./routes/question.js";
+import examQuestionsRoutes from "./routes/exam_question.js";
 
 // Configurar el dotenv para usar variables de entorno
 dotenv.config();
@@ -31,7 +37,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Configurar rutas del aplicativo ( módulos )
-// TODO
+app.use('/api/user', UserRoutes);
+app.use('/api/subject', SubjectRoutes);
+app.use('/api/topic', TopicRoutes);
+app.use('/api/exam', ExamRoutes);
+app.use('/api/question', QuestionRoutes);
+app.use('/api/exam_questions', examQuestionsRoutes);
 
 // Configurar el servidor de Node
 app.listen(puerto, () => {
