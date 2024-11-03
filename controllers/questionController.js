@@ -20,3 +20,5 @@ export const testQuestion = (req,res) => {
 // Método para eliminar una pregunta TODO
 
 // Método para eliminar un listado de preguntas TODO
+
+// Método para mostrar una pregunta en pdf TODO

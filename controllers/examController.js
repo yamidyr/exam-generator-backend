@@ -24,3 +24,5 @@ export const testExam = (req,res) => {
 
 // Método para eliminar un listado de examenes TODO
     // Deben afectarse las tablas exams, exam_questions
+
+// Método para mostrar un examen en pdf TODO
