@@ -133,7 +133,7 @@ export const login = async (req,res) => {
     }
 };
 
-// Método para obtener info de un usuario TODO
+// Método para obtener info de un usuario
 export const getUser = async (req, res ) => {
     try {
         // Obtener el ID del usuario desde el token de autenticación
