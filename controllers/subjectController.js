@@ -78,6 +78,7 @@ export const createSubject = async (req, res) => {
 export const getSubjects = async (req,res) => {
     try {
 
+        // Consultamos las materias a la base de datos
         const subjects = await Subject.find().select('-created_at -__v');
 
         // Si no existen usuarios en la BD disponibles

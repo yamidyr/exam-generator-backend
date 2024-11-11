@@ -7,6 +7,11 @@ const QuestionsSchema = Schema ({
         type: String,
         required: true
     },
+    user_id: {
+        type:Schema.ObjectId,
+        ref: "User",
+        required:true
+    },
     difficulty: {
         type: Number,
         default: 2
@@ -30,7 +35,8 @@ const QuestionsSchema = Schema ({
         required: true
     },
     description: {
-        type: String
+        type: String,
+        default: ""
     },
     status: {
         type: String,
