@@ -9,6 +9,7 @@ import SubjectRoutes from "./routes/subject.js";
 import TopicRoutes from "./routes/topic.js";
 import ExamRoutes from "./routes/exam.js";
 import QuestionRoutes from "./routes/question.js";
+import ExamQuestionsRoutes from "./routes/examQuestions.js"
 
 // Configurar el dotenv para usar variables de entorno
 dotenv.config();
@@ -41,6 +42,7 @@ app.use('/api/subject', SubjectRoutes);
 app.use('/api/topic', TopicRoutes);
 app.use('/api/exam', ExamRoutes);
 app.use('/api/question', QuestionRoutes);
+app.use('/api/exam-questions', ExamQuestionsRoutes)
 
 // Configurar el servidor de Node
 app.listen(puerto, () => {
