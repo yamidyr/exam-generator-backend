@@ -103,7 +103,7 @@ export const getQuestion = async (req, res ) => {
         // Devolver la información de la pregunta
         return res.status(200).json({
             status: "success",
-            user: questionFound
+            question: questionFound
         })
 
 

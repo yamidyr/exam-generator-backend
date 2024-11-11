@@ -17,10 +17,12 @@ const ExamSchema = Schema ({
         type: Number
     },
     instructions: {
-        type: String
+        type: String,
+        default: "Instrucciones."
     },
     description: {
-        type: String
+        type: String,
+        default: "Descripción."
     },
     number_of_questions: {
         type: Number,
