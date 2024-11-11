@@ -131,7 +131,7 @@ export const updateSubject = async (req, res ) => {
 
 
         // Obtener la información de la materia que se va a actualizar
-        let subjectToUpdate = req.body; // recoge los datos nuevos del usuario desde el formulario
+        let subjectToUpdate = req.body; // recoge los datos nuevos de la materia desde el formulario
 
 
         // Comprobamos si la materia ya existe en la BD
@@ -144,7 +144,7 @@ export const updateSubject = async (req, res ) => {
 
         if(isADuplicatedSubject){
             return res.status(200).send({
-                status: "succes",
+                status: "success",
                 message: "El nombre identificador de la materia ya existe en bd"
             });
         }
@@ -174,6 +174,7 @@ export const updateSubject = async (req, res ) => {
 }
 
 // Método para eliminar un Subject // solo admin puede hacerlo
+//TODO: Al eliminar un tópico, no se eliminan los subjects para ese tópico. ¿Qué debería hacer?
 export const deleteSubject = async (req,res) => {
     try {
 
@@ -197,7 +198,7 @@ export const deleteSubject = async (req,res) => {
         if(!subjectId){
             return res.status(400).send({
                 status: "error",
-                message: "Debe proveer un id de materia para  poder hacer la modificación"
+                message: "Debe proveer un id de materia para poder eliminar"
             });
         }
 
@@ -225,4 +226,4 @@ export const deleteSubject = async (req,res) => {
             message: "Error al eliminar la materia."
         });
     }
-    };
+};
