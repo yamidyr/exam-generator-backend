@@ -6,13 +6,20 @@ const UserSchema = Schema ({
         type: String,
         required: true
     },
-    role: {
+    id_number:{
         type: String,
         required: true
     },
-    subject_id: {
-        type: Schema.ObjectId,
-        ref: "Subject",
+    role: {
+        type: String,
+        default: "docente"
+    },
+    subject_name: {
+        type: String,
+        required: true
+    },
+    password: {
+        type: String,
         required: true
     },
     created_at: {
