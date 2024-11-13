@@ -196,20 +196,25 @@ export const generateExam = async (req,res) => {
         //Creamos el archivo input.tex para ser luego compilado
         fs.writeFile('input.tex',stringQuestions,function(err){
             if(err) throw err;
-            console.log('updated');
+            console.log('Archivo .tex a ser compilado creado con éxito');
         });
 
         // Leemos el archivo input creado
         const input = fs.createReadStream('input.tex');
         // creamos el archivo output.pdf y compilamos input.tex en el
-        const output = fs.createWriteStream("output.pdf")
-        const pdf = latex(input)
-        pdf.pipe(output)
+        const output = fs.createWriteStream("output.pdf");
+        const pdf = latex(input);
+        const outputCreated = pdf.pipe(output);
+
+        outputCreated.on('finish', ()=> {
+            return res.download("C:/DWFSV3-270/exam-generator-backend/output.pdf");
+        })
+
 
         // retornamos mensaje de éxito:
-        return res.status(201).send({
-            message: "Archivo creado exitosamente"
-        });
+        // return res.status(201).send({
+        //     message: "Archivo creado exitosamente"
+        // });
 
     } catch (error) {
         console.log("Error al generarel examen: ", error);
