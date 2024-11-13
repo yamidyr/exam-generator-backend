@@ -1,6 +1,10 @@
 import Subject from '../models/subjects.js';
 import Exam from '../models/exams.js'
 import mongoose from 'mongoose';
+import * as fs from 'fs';
+import latex from 'node-latex';
+
+
 
 
 // Método de pureba del controlador exam //TODO: Limpiar
@@ -168,4 +172,65 @@ export const getAllExams = async (req,res) => {
 // Método para eliminar un listado de examenes TODO
     // Deben afectarse las tablas exams, exam_questions
 
-// Método para mostrar un examen en pdf TODO
+// Método para generar un examen en pdf y guardarlo en el servidor TODO
+export const generateExam = async (req,res) => {
+    try {
+
+        //obtenemos listado de preguntas del request
+        const questions = req.body;
+        let stringQuestions = "";
+
+        //leemos el archivo input para obtener el inicio del documento tex
+        const contentFileInput = await fs.promises.readFile('template.tex',{ encoding: 'utf8'});
+
+        // agregamos el encabezado a la variable stringQuestions
+        stringQuestions +=  contentFileInput;
+
+        // Agregamos cada pregunta al stringQuestions
+        for(let i=0;i<questions.length;i++){
+            stringQuestions += `\n \\question \n ${questions[i].content}`;
+        }
+        // cerramos el documento en la variable stringQuestions:
+        stringQuestions += `\n \\end{questions} \n \\end{document}`;
+
+        //Creamos el archivo input.tex para ser luego compilado
+        fs.writeFile('input.tex',stringQuestions,function(err){
+            if(err) throw err;
+            console.log('updated');
+        });
+
+        // Leemos el archivo input creado
+        const input = fs.createReadStream('input.tex');
+        // creamos el archivo output.pdf y compilamos input.tex en el
+        const output = fs.createWriteStream("output.pdf")
+        const pdf = latex(input)
+        pdf.pipe(output)
+
+        // retornamos mensaje de éxito:
+        return res.status(201).send({
+            message: "Archivo creado exitosamente"
+        });
+
+    } catch (error) {
+        console.log("Error al generarel examen: ", error);
+        return res.status(500).send({
+            status: "error",
+            message: `Error al generarel examen: ${error}:   ${error.reason}`
+        })
+    }
+}
+
+// Método para descargar un examen
+export const downloadGeneratedExam = async (req,res) => {
+    try {
+        return res.download("C:/DWFSV3-270/exam-generator-backend/output.pdf");
+    } catch (error) {
+        console.log("Error al descargar el examen: ", error);
+        return res.status(500).send({
+            status: "error",
+            message: `Error al descargar el examen: ${error}:   ${error.reason}`
+        })
+    }
+}
+
+// Método para eliminar un archivo de examen que fue generado
