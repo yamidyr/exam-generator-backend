@@ -218,7 +218,10 @@ export const generateExam = async (req,res) => {
         const outputCreated = pdf.pipe(output);
 
         outputCreated.on('finish', ()=> {
-            return res.download("C:/DWFSV3-270/exam-generator-backend/output.pdf");
+            return res.status(201).send({
+                message: "success",
+                message: "Examen creado correctamente"
+            });
         })
 
 
