@@ -177,8 +177,11 @@ export const generateExam = async (req,res) => {
     try {
 
         //obtenemos listado de preguntas del request
-        const questions = req.body;
+        const questionsRequest = req.body.body;
+        const questions = JSON.parse(questionsRequest);
         let stringQuestions = "";
+
+        console.log("questions: " , questions);
 
         //leemos el archivo input para obtener el inicio del documento tex
         const contentFileInput = await fs.promises.readFile('template.tex',{ encoding: 'utf8'});
@@ -188,15 +191,23 @@ export const generateExam = async (req,res) => {
 
         // Agregamos cada pregunta al stringQuestions
         for(let i=0;i<questions.length;i++){
+            console.log("question",i," ", questions[i]);
             stringQuestions += `\n \\question \n ${questions[i].content}`;
         }
         // cerramos el documento en la variable stringQuestions:
         stringQuestions += `\n \\end{questions} \n \\end{document}`;
 
+        //console.log("questions:", stringQuestions);
+
         //Creamos el archivo input.tex para ser luego compilado
         fs.writeFile('input.tex',stringQuestions,function(err){
-            if(err) throw err;
-            console.log('Archivo .tex a ser compilado creado con éxito');
+            if(err){
+                return res.status(500).send({
+                    status: "error",
+                    message: "Error al escribir el archivo input.tex: " + err
+                })
+            };
+            console.log('Archivo input.tex a ser compilado creado con éxito');
         });
 
         // Leemos el archivo input creado
